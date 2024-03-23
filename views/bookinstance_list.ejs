@@ -1,0 +1,26 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %></h1>
+  <% if (bookinstance_list.length) { %>
+    <ul>
+      <% bookinstance_list.forEach(bookinstance => { %>
+        <li>
+          <a href="<%= bookinstance.url %>"><%= bookinstance.book.title %> : <%= bookinstance.imprint %></a> -&nbsp;
+          <% if (bookinstance.status === 'Available') { %>
+            <span class="text-success"><%= bookinstance.status %></span>
+          <% } else if (bookinstance.status === 'Maintenance') { %>
+            <span class="text-danger"><%= bookinstance.status %></span>
+          <% } else { %>
+            <span class="text-warning"><%= bookinstance.status %></span>
+          <% } %>
+          <% if (bookinstance.status != 'Available') { %>
+            <span>(Due: <%= bookinstance.due_back_formatted %>)</span>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>There are no book copies in this library.</p> 
+  <% } %>
+</div>
