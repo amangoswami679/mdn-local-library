@@ -12,7 +12,7 @@ const book_instance_controller = require('../controllers/bookinstanceController'
 router.get('/', book_controller.index);
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id). (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes#route_parameters Note section)
-router.get('/book/create', book_controller.book_delete_get);
+router.get('/book/create', book_controller.book_create_get);
 
 // POST request for creating Book.
 router.post('/book/create', book_controller.book_create_post);
