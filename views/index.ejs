@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1>
+    <%= title %>
+  </h1>
+  <p>Welcome to <em>LocalLibrary</em>, a very basic Express website developed as a tutorial example on the Mozilla
+    Developer Network.</p>
+
+  <h1>Dynamic content</h1>
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><b>Books:</b>
+      <%= book_count %>
+    </li>
+    <li><b>Copies:</b>
+      <%= book_instance_count %>
+    </li>
+    <li><b>Copies Available:</b>
+      <%= book_instance_available_count %>
+    </li>
+    <li><b>Authors:</b>
+      <%= author_count %>
+    </li>
+    <li><b>Genres:</b>
+      <%= genre_count %>
+    </li>
+  </ul>
+</div>
