@@ -8,5 +8,7 @@
         <li><a href="<%= author.url %>"><%= author.name %></a> (<%= author.lifespan %>)</li>
       <% }) %>
     </ul>
+  <% } else { %>
+    <p>There are no authors.</p>
   <% } %>
 </div>
