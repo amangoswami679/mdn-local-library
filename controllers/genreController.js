@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Genre = require("../models/genre");
 const Book = require("../models/book");
 const asyncHandler = require("express-async-handler");
@@ -13,6 +15,13 @@ exports.genre_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific Genre.
 exports.genre_detail = asyncHandler(async (req, res, next) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    const err = new Error("Invalid ID");
+    err.status = 422;
+
+    return next(err);
+  }
+
   // Get details of genre and all associated books (in parallel)
   const [genre, booksInGenre] = await Promise.all([
     Genre.findById(req.params.id).exec(),
