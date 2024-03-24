@@ -1,0 +1,12 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %></h1>
+  <% if (author_list.length) { %>
+    <ul>
+      <% author_list.forEach(author => { %>
+        <li><a href="<%= author.url %>"><%= author.name %></a> (<%= author.lifespan %>)</li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
