@@ -1,0 +1,15 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1>Author: <%= author.name %></h1>
+  <p><%= author.lifespan %></p>
+  <div class="ms-3 mt-3">
+    <p>Books: <%= author_books.length === 0 ? 'This author has no books.' : '' %></p>
+    <dl>
+      <% author_books.forEach(book => { %>
+        <dt><a href="<%= book.url %>"><%= book.title %></a></dt>
+        <dd><%= book.summary %></dd>
+      <% }) %>
+    </dl>
+  </div>
+</div>
