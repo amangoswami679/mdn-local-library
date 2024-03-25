@@ -1,5 +1,8 @@
+const mongoose = require('mongoose');
+
 const Author = require('../models/author');
 const asyncHandler = require('express-async-handler');
+const Book = require('../models/book');
 
 // Display list of all Authors.
 exports.author_list = asyncHandler(async (req, res, next) => {
@@ -12,7 +15,30 @@ exports.author_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific Author.
 exports.author_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Author details: ${req.params.id}`);
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    const err = new Error("Invalid ID");
+    err.status = 422;
+
+    return next(err);
+  }
+
+  const [author, booksByAuthor] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Book.find({ author: req.params.id }, 'title summary').sort({ title: 1 }).exec(),
+  ]);
+
+  if (author === null) {
+    // No results.
+    const err = new Error("Book not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render('author_detail', {
+    title: 'Author detail',
+    author: author,
+    author_books: booksByAuthor,
+  });
 });
 
 // Display Author create form on GET.
