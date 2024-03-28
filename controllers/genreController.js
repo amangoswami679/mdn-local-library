@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { body, validationResult } = require('express-validator');
 
 const Genre = require("../models/genre");
 const Book = require("../models/book");
@@ -44,13 +45,50 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
 
 // Display Genre create form on GET.
 exports.genre_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre create GET");
+  res.render("genre_form", { title: "Create Genre" });
 });
 
 // Handle Genre create on POST.
-exports.genre_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre create POST");
-});
+exports.genre_create_post = [
+  // Validate & sanitize the name field.
+  body("name", "Genre name must contain at least 3 characters.")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  // Process request after validation & sanitization.
+  asyncHandler(async function (req, res, next) {
+    const errors = validationResult(req);
+
+    // Create a genre object with escaped & trimmed data.
+    const genre = new Genre({ name: req.body.name });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render("genre_form", {
+        title: "Create Genre",
+        genre,
+        errors: errors.array(),
+      });
+
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Genre with the same name already exists.
+      const genreExists = await Genre.findOne({ name: req.body.name })
+        .collation({ locale: "en", strength: 2 })
+        .exec();
+      if (genreExists) {
+        // Genre exists, redirect to its detail page.
+        res.redirect(genreExists.url);
+      } else {
+        await genre.save();
+        // New genre saved. Redirect to genre detail page.
+        res.redirect(genre.url);
+      }
+    }
+  }),
+];
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = asyncHandler(async (req, res, next) => {
