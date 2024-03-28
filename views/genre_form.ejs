@@ -1,0 +1,19 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %></h1>
+  <form action="" method="post">
+    <div class="form-floating mb-3">
+      <input type="text" id="name" class="form-control" placeholder="Fantasy, Poetry etc." name="name" required value="<%= typeof genre !== 'undefined' ? genre.name : '' %>">
+      <label for="name">Genre</label>
+    </div>
+    <button class="btn btn-primary mt-2" type="submit">Submit</button>
+  </form>
+  <% if (typeof errors !== 'undefined' && errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li class="text-danger"><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
