@@ -1,0 +1,58 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %></h1>
+  <form action="" method="POST">
+    <div class="row g-2">
+      <div class="col-lg-6">
+        <div class="form-floating mb-3">
+          <input type="text" name="title" id="title" class="form-control" placeholder="Enter book title" value="<%= typeof book !== 'undefined' ? book.title : '' %>">
+          <label for="title" class="form-label">Title</label>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-floating mb-3">
+          <select name="author" id="author" class="form-select" aria-placeholder="Select book author">
+            <option value="" disabled selected>Select author of the book</option>
+            <% authors.forEach(author => { %>
+                <option value="<%= author._id %>" <%= (typeof book !== 'undefined' ? (typeof book.author !== 'undefined' ? (book.author._id.toString() === author._id.toString() ? 'selected' : '') : '') : '') %>><%= author.name %></option>
+            <% }); %>
+          </select>
+          <label for="author" class="form-label">Author</label>
+        </div>
+      </div>
+    </div>
+    <div class="row g-2">
+      <div class="col-lg-12">
+        <div class="form-floating mb-3">
+          <textarea name="summary" id="summary" class="form-control" style="height: 6rem;" placeholder="Enter book summary"><%= typeof book !== 'undefined' ? book.summary : '' %></textarea>
+          <label for="summary" class="form-label">Summary</label>
+        </div>
+      </div>
+    </div>
+    <div class="row g-2">
+      <div class="col-lg-12">
+        <div class="form-floating mb-3">
+          <input type="text" name="isbn" id="isbn" class="form-control" placeholder="Enter book ISBN"><%= typeof book !== 'undefined' ? book.isbn : '' %></textarea>
+          <label for="isbn" class="form-label">ISBN</label>
+        </div>
+      </div>
+    </div>
+    <% genres.forEach(genre => { %>
+      <div class="form-check form-check-inline">
+        <input type="checkbox" name="genre" id="genre<%= genre._id %>" class="form-check-input" value="<%= genre._id %>" <%= typeof book !== 'undefined' ? (book.genre.includes(genre._id) ? 'checked' : '') : '' %>>
+        <label for="genre<%= genre._id %>" class="form-check-label"><%= genre.name %></label>
+      </div>
+    <% }) %>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  <% if (typeof errors !== 'undefined' && errors) { %>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li class="text-danger"><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
