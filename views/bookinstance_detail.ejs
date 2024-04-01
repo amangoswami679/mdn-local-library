@@ -8,4 +8,8 @@
     <span class="<%= bookinstance.status == 'Available' ? 'text-success' : bookinstance.status == 'Maintenance' ? 'text-danger' : 'text-warning' %>"><%= bookinstance.status %></span>
   </p>
   <p><strong>Due back:</strong> <%= bookinstance.due_back_formatted %></p>
+  <hr>
+  <p>
+    <a href="<%= `${bookinstance.url}/delete` %>" class="btn btn-primary">Delete Copy</a>
+  </p>
 </div>
