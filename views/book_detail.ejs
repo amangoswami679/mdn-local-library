@@ -35,5 +35,9 @@
     <% if (book_instances.length === 0) { %>
       <p>There are no copies of this book in the library.</p>
     <% } %>
-</div>
+  </div>
+  <hr>
+  <p>
+    <a href="<%= `${book.url}/delete` %>" class="btn btn-primary">Delete book</a>
+  </p>
 </div>
