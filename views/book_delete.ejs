@@ -1,0 +1,23 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %>: <%= book.title %></h1>
+  <% if (book_instances.length) { %>
+    <p><strong>Delete the following book copies before attempting to delete this book:</strong></p>
+    <div class="mt-3 ms-3">
+      <h4>Copies</h4>
+      <dl>
+        <% book_instances.forEach(bookinstance => { %>
+          <dt><a href="<%= bookinstance.url %>"><%= bookinstance._id %></a></dt>
+          <dd><%= bookinstance.imprint %></dd>
+        <% }) %>
+      </dl>
+    </div>
+  <% } else { %>
+    <p>Do you really want to delete this Book?</p>
+    <form action="" method="post">
+      <input type="hidden" name="bookid" id="bookid" value="<%= book._id %>">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+  <% } %>
+</div>
