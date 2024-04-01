@@ -1,0 +1,24 @@
+<%- include('./layouts/main') %>
+
+<div class="col-sm-10 mt-3">
+  <h1><%= title %>: <%= author.name %></h1>
+  <p><%= author.lifespan %></p>
+  <% if (author_books.length) { %>
+    <p><strong>Delete the following books before attempting to delete this author:</strong></p>
+    <div class="mt-3 ms-3">
+      <h4>Books</h4>
+      <dl>
+        <% author_books.forEach(book => { %>
+          <dt><a href="<%= book.url %>"><%= book.title %></a></dt>
+          <dd><%= book.summary %></dd>
+        <% }) %>
+      </dl>
+    </div>
+  <% } else { %>
+    <p>Do you really want to delete this Author?</p>
+    <form action="" method="post">
+      <input type="hidden" name="authorid" id="authorid" value="<%= author._id %>">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+  <% } %>
+</div>
