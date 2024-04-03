@@ -20,13 +20,13 @@
     <div class="row g-2">
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" placeholder='dd/mm/yyyy' value="<%= typeof author !== 'undefined' ? author.date_of_birth : '' %>">
+          <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" placeholder='dd/mm/yyyy' value="<%= typeof author !== 'undefined' ? author.date_of_birth_formatted : '' %>">
           <label for="date_of_birth" class="form-label">Date of Birth</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="date" name="date_of_death" id="date_of_death" class="form-control" placeholder='dd/mm/yyyy' value="<%= typeof author !== 'undefined' ? author.date_of_death : '' %>">
+          <input type="date" name="date_of_death" id="date_of_death" class="form-control" placeholder='dd/mm/yyyy' value="<%= typeof author !== 'undefined' ? author.date_of_death_formatted : '' %>">
           <label for="date_of_death" class="form-label">Date of Death</label>
         </div>
       </div>
