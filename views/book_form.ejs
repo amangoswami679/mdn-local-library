@@ -33,7 +33,7 @@
     <div class="row g-2">
       <div class="col-lg-12">
         <div class="form-floating mb-3">
-          <input type="text" name="isbn" id="isbn" class="form-control" placeholder="Enter book ISBN"><%= typeof book !== 'undefined' ? book.isbn : '' %></textarea>
+          <input type="text" name="isbn" id="isbn" class="form-control" placeholder="Enter book ISBN" value="<%= typeof book !== 'undefined' ? book.isbn : '' %>">
           <label for="isbn" class="form-label">ISBN</label>
         </div>
       </div>
