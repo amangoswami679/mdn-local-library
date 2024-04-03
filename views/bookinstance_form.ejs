@@ -9,7 +9,7 @@
           <select name="book" id="book" class="form-select" aria-placeholder="Select book" required>
             <option value="" disabled selected>Select book</option>
             <% book_list.forEach(book => { %>
-                <option value="<%= book._id %>" <%= (typeof bookinstance !== 'undefined' ? (typeof selected_book !== 'undefined' ? (selected_book === book._id.toString() ? 'selected' : '') : '') : '') %>><%= book.title %></option>
+                <option value="<%= book._id %>" <%= (typeof bookinstance !== 'undefined' ? (typeof selected_book !== 'undefined' ? (selected_book.toString() === book._id.toString() ? 'selected' : '') : '') : '') %>><%= book.title %></option>
             <% }); %>
           </select>
           <label for="book" class="form-label">Book</label>
