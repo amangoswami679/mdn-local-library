@@ -8,11 +8,35 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
 
+const compression = require("compression");
+const helmet = require("helmet");
+
 const app = express();
 
+// Set up rate limiter: maximum of fifteen requests per minute
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 15,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
+// Add helmet to the middleware chain.
+// Set CSP headers to allow our Bootstrap and Jquery to be served
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
+
 const mongoose = require('mongoose');
+
 mongoose.set('strictQuery', false);
-const mongoDB = "mongodb+srv://amangoswami679:gtavc55154@cluster0.nxyxqni.mongodb.net/mdn_local_library?retryWrites=true&w=majority&appName=Cluster0";
+const dev_db_url = "mongodb+srv://amangoswami679:gtavc55154@cluster0.nxyxqni.mongodb.net/mdn_local_library?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -27,6 +51,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(compression()); // Compress all routes
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

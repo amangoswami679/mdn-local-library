@@ -1,6 +1,9 @@
 {
   "name": "mdn-local-library",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.11.1"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -8,12 +11,15 @@
     "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "^3.1.9",
     "express": "^4.18.3",
     "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^7.2.0",
     "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
     "http-errors": "~1.6.3",
     "luxon": "^3.4.4",
     "mongoose": "^8.2.2",
